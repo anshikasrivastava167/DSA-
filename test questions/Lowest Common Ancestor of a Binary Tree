@@ -1,0 +1,35 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def lowest_common_ancestor(root, p, q):
+    if root is None or root == p or root == q:
+        return root
+
+    left = lowest_common_ancestor(root.left, p, q)
+    right = lowest_common_ancestor(root.right, p, q)
+
+    if left and right:
+        return root
+
+    return left if left else right
+
+
+    n7 = TreeNode(7)
+    n4 = TreeNode(4)
+    n6 = TreeNode(6)
+    n2 = TreeNode(2, n7, n4)
+    n0 = TreeNode(0)
+    n8 = TreeNode(8)
+    n5 = TreeNode(5, n6, n2)
+    n1 = TreeNode(1, n0, n8)
+    n3 = TreeNode(3, n5, n1)
+    return n3, n5, n1  # root, p, q
+
+
+root, p, q = build_tree()
+result = lowest_common_ancestor(root, p, q)
+print(result.val)  # 3
